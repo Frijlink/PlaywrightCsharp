@@ -13,6 +13,8 @@ You need Visual Studio or Visual Studio Code with the C# extension and [PowerShe
 
 Follow the steps [here](https://playwright.dev/dotnet/docs/intro), follow the steps from step 2
 
+Install [Faket.net](https://github.com/Kuree/Faker.Net)-package with `dotnet add package Faker.Net`
+
 Fill in your credentials in `MyConfig.cs`.
 
 ## How to run the tests ##

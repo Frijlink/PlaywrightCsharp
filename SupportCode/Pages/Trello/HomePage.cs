@@ -44,13 +44,21 @@ public class HomePage
             : new List<string>();
     }
 
+    public ILocator GetBackGroundColourBtn(string colour)
+    {
+        return _page.Locator($"css=button[title=\"{colour}\"]");
+    }
+
     public async Task CreateNewBoard(string name, string backgroundColour) {
-        await _newBoardBtn.ClickAsync();
-        await _page.Locator($"css=button[title=\"${backgroundColour}\"]").ClickAsync();
+        await _page.RunAndWaitForResponseAsync(async () =>
+        {
+            await _newBoardBtn.ClickAsync();
+        }, "https://api-gateway.trello.com/gateway/api/gasv3/api/v1/batch");
+        await GetBackGroundColourBtn(backgroundColour).ClickAsync();
         await _newBoardNameInput.TypeAsync(name, new() { Delay = 50 });
         await _createNewBoardSubmitBtn.WaitForAsync(new() { State = WaitForSelectorState.Attached });
         await _createNewBoardSubmitBtn.ClickAsync();
-        string newName = name.Replace(' ', '-').ToLower();
+        string newName = name.Replace("_", string.Empty).ToLower();
         await _page.WaitForURLAsync($"**/{newName}");
     }
 }
