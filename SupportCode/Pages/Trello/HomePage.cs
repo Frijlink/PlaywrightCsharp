@@ -27,10 +27,10 @@ public class HomePage
         _boardTileTitle = page.Locator("css=.board-tile-details-name");
     }
 
-    // TODO: set base URL in settings
     public async Task GoTo()
     {
-        await _page.GotoAsync("");
+        MyConfig config = new MyConfig();
+        await _page.GotoAsync(config.BASE_URL);
     }
 
     public ILocator GetSectionHeader() {

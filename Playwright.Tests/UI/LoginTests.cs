@@ -9,13 +9,14 @@ public class LoginTests : PageTest
     [Test]
     public async Task LogginInAndOutOnTrelloDotCom()
     {
+        MyConfig config = new MyConfig();
         TrelloIndex trello = new TrelloIndex(Page);
 
         await trello.homePage.GoTo();
         await trello.header.GetLoginButton().ClickAsync();
         await trello.loginPage.Login(
-            "tmp",
-            "tmp"
+            config.USER_NAME,
+            config.PASSWORD
         );
 
         await Expect(trello.homePage.GetSectionHeader()).ToContainTextAsync("YOUR WORKSPACES");

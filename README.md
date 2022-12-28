@@ -13,6 +13,8 @@ You need Visual Studio or Visual Studio Code with the C# extension and [PowerShe
 
 Follow the steps [here](https://playwright.dev/dotnet/docs/intro), follow the steps from step 2
 
+Fill in your credentials in `MyConfig.cs`.
+
 ## How to run the tests ##
 
 * Run all the tests with `dotnet test --settings:.runsettings`
