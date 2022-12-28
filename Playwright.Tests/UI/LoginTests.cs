@@ -4,7 +4,7 @@ namespace PlaywrightTests;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
-public class Tests : PageTest
+public class LoginTests : PageTest
 {
     [Test]
     public async Task LogginInAndOutOnTrelloDotCom()
