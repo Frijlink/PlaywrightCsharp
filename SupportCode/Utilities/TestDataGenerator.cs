@@ -1,5 +1,3 @@
-using Faker;
-
 public class TestDataGenerator
 {
     public string GenerateBoardName()
