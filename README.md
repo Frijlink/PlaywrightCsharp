@@ -21,3 +21,10 @@ Fill in your credentials in `MyConfig.cs`.
 
 * Run all the tests with `dotnet test --settings:.runsettings`
 * Run a single test with `dotnet test --settings:.runsettings --filter "MyClassName"`
+
+## TODO: ##
+
+* Parallel tests
+* Screenshot on save
+* HTML report (or trx)
+* Get rid of MyConfig.cs (dotnet user-secrets?)
