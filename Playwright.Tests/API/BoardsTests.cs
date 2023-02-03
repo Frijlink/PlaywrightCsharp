@@ -31,21 +31,21 @@ public class BoardsTests : PageTest
     [TearDown]
     public async Task DeleteAllBoards()
     {
-        if (requestContext == null) requestContext = await CreateContext();
-        if (API == null) API = new ApiIndex(requestContext);
+        if (requestContext is null) requestContext = await CreateContext();
+        if (API is null) API = new ApiIndex(requestContext);
         var boards = await API.membersApi.GetBoardsFromMember(key, token);
         foreach (var board in boards.EnumerateArray())
         {
             var responseStat = await API.boardsApi.DeleteBoard(board.ToString(), key, token);
-            Assert.AreEqual(responseStat, 20);
+            Assert.AreEqual(responseStat, 200);
         }
     }
 
     [Test]
     public async Task CreateAndDeleteTrelloBoardThroughApi()
     {
-        if (requestContext == null) requestContext = await CreateContext();
-        if (API == null) API = new ApiIndex(requestContext);
+        if (requestContext is null) requestContext = await CreateContext();
+        if (API is null) API = new ApiIndex(requestContext);
 
         var dataGenerator = new TestDataGenerator();
         var boardName = dataGenerator.GenerateBoardName();
@@ -98,7 +98,7 @@ public class BoardsTests : PageTest
         var responseBodyClose = await API.boardsApi.GetBoard(boardId, key, token);
         StringAssert.AreEqualIgnoringCase(responseBodyClose.GetProperty("closed").ToString(), "true");
 
-        // Deletet Board
+        // Delete Board
         var responseStatusDelete = await API.boardsApi.DeleteBoard(boardId, key, token);
         Assert.AreEqual(responseStatusDelete, 200);
     }

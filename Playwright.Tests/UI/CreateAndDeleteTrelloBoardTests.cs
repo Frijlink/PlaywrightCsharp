@@ -27,7 +27,7 @@ public class CreateAndDeleteTrelloBoardTests : PageTest
     [Test]
     public async Task CreateAndDeleteTrelloBoard()
     {
-        if (trello == null) trello = new TrelloIndex(Page);
+        if (trello is null) trello = new TrelloIndex(Page);
 
         var dataGenerator = new TestDataGenerator();
         var boardName = dataGenerator.GenerateBoardName();
