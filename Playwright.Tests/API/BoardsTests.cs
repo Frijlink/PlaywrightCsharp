@@ -36,8 +36,9 @@ public class BoardsTests : PageTest
         var boards = await API.membersApi.GetBoardsFromMember(key, token);
         foreach (var board in boards.EnumerateArray())
         {
-            var responseStat = await API.boardsApi.DeleteBoard(board.ToString(), key, token);
-            Assert.AreEqual(responseStat, 200);
+            var id = board.GetProperty("id").ToString();
+            var responseStatus = await API.boardsApi.DeleteBoard(id, key, token);
+            Assert.AreEqual(responseStatus, 200);
         }
     }
 
@@ -59,20 +60,20 @@ public class BoardsTests : PageTest
         var responseBodyCreate = await API.boardsApi.CreateBoard(key, token, boardName, backgroundColour, visibility);
         var respCreatePrefs = responseBodyCreate.GetProperty("prefs");
         boardId = responseBodyCreate.GetProperty("id").ToString();
-        StringAssert.AreEqualIgnoringCase(responseBodyCreate.GetProperty("idOrganization").ToString(), organizationId);
-        StringAssert.AreEqualIgnoringCase(responseBodyCreate.GetProperty("name").ToString(), boardName);
-        StringAssert.AreEqualIgnoringCase(responseBodyCreate.GetProperty("closed").ToString(), "false");
-        StringAssert.AreEqualIgnoringCase(respCreatePrefs.GetProperty("background").ToString(), backgroundColour);
-        StringAssert.AreEqualIgnoringCase(respCreatePrefs.GetProperty("permissionLevel").ToString(), visibility);
+        Assert.AreEqual(responseBodyCreate.GetProperty("idOrganization").ToString(), organizationId);
+        Assert.AreEqual(responseBodyCreate.GetProperty("name").ToString(), boardName);
+        Assert.AreEqual(responseBodyCreate.GetProperty("closed").ToString(), "False");
+        Assert.AreEqual(respCreatePrefs.GetProperty("background").ToString(), backgroundColour);
+        Assert.AreEqual(respCreatePrefs.GetProperty("permissionLevel").ToString(), visibility);
 
         // Read Board
         var responseBodyRead = await API.boardsApi.GetBoard(boardId, key, token);
         var respReadPrefs = responseBodyCreate.GetProperty("prefs");
-        StringAssert.AreEqualIgnoringCase(responseBodyRead.GetProperty("idOrganization").ToString(), organizationId);
-        StringAssert.AreEqualIgnoringCase(responseBodyRead.GetProperty("name").ToString(), boardName);
-        StringAssert.AreEqualIgnoringCase(responseBodyRead.GetProperty("closed").ToString(), "false");
-        StringAssert.AreEqualIgnoringCase(respReadPrefs.GetProperty("background").ToString(), backgroundColour);
-        StringAssert.AreEqualIgnoringCase(respReadPrefs.GetProperty("permissionLevel").ToString(), visibility);
+        Assert.AreEqual(responseBodyRead.GetProperty("idOrganization").ToString(), organizationId);
+        Assert.AreEqual(responseBodyRead.GetProperty("name").ToString(), boardName);
+        Assert.AreEqual(responseBodyRead.GetProperty("closed").ToString(), "False");
+        Assert.AreEqual(respReadPrefs.GetProperty("background").ToString(), backgroundColour);
+        Assert.AreEqual(respReadPrefs.GetProperty("permissionLevel").ToString(), visibility);
 
         // Update Board
         var parameters = new Dictionary<string, object>();
@@ -83,11 +84,11 @@ public class BoardsTests : PageTest
         parameters.Add("prefs/visibility", updatedVisibility);
         var responseBodyUpdate = await API.boardsApi.UpdateBoard(boardId, parameters);
         var respUpdatePrefs = responseBodyUpdate.GetProperty("prefs");
-        StringAssert.AreEqualIgnoringCase(responseBodyUpdate.GetProperty("idOrganization").ToString(), organizationId);
-        StringAssert.AreEqualIgnoringCase(responseBodyUpdate.GetProperty("name").ToString(), updatedBoardName);
-        StringAssert.AreEqualIgnoringCase(responseBodyUpdate.GetProperty("closed").ToString(), "false");
-        StringAssert.AreEqualIgnoringCase(respUpdatePrefs.GetProperty("background").ToString(), updatedBackgroundColour);
-        // StringAssert.AreEqualIgnoringCase(respUpdatePrefs.GetProperty("permissionLevel").ToString(), updatedVisibility);
+        Assert.AreEqual(responseBodyUpdate.GetProperty("idOrganization").ToString(), organizationId);
+        Assert.AreEqual(responseBodyUpdate.GetProperty("name").ToString(), updatedBoardName);
+        Assert.AreEqual(responseBodyUpdate.GetProperty("closed").ToString(), "False");
+        Assert.AreEqual(respUpdatePrefs.GetProperty("background").ToString(), updatedBackgroundColour);
+        // Assert.AreEqual(respUpdatePrefs.GetProperty("permissionLevel").ToString(), updatedVisibility);
 
         // Close Board
         var closeBoardParams = new Dictionary<string, object>();
@@ -96,7 +97,7 @@ public class BoardsTests : PageTest
         closeBoardParams.Add("closed", "true");
         await API.boardsApi.UpdateBoard(boardId, closeBoardParams);
         var responseBodyClose = await API.boardsApi.GetBoard(boardId, key, token);
-        StringAssert.AreEqualIgnoringCase(responseBodyClose.GetProperty("closed").ToString(), "true");
+        Assert.AreEqual(responseBodyClose.GetProperty("closed").ToString(), "True");
 
         // Delete Board
         var responseStatusDelete = await API.boardsApi.DeleteBoard(boardId, key, token);
