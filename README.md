@@ -28,5 +28,5 @@ Fill in your credentials in `MyConfig.cs`.
 * Screenshot on save
 * HTML report (or trx)
 * Get rid of MyConfig.cs (dotnet user-secrets?)
-* use `var` everywhere and get rid of unnecassary casting
+* get rid of unnecassary casting?
 * Fluentassert vs Assert

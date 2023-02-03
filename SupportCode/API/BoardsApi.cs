@@ -17,16 +17,16 @@ public class BoardsApi
         string colour,
         string visibility
     ) {
-        string url = "/1/boards/";
+        var url = "/1/boards/";
         headers.AddHeaders("Accept", "application/json");
-        Dictionary<string, object> data = new Dictionary<string, object>() {
+        var data = new Dictionary<string, object>() {
             { "name", name },
             { "key", apiKey },
             { "token", apiToken },
             { "prefs_background", colour },
             { "prefs_permissionLevel", visibility }
         };
-        IAPIResponse response = await _request.PostAsync(url, new()
+        var response = await _request.PostAsync(url, new()
             {
                 Headers = headers.GetHeaders(),
                 DataObject = data
@@ -37,8 +37,8 @@ public class BoardsApi
 
     public async Task<System.Text.Json.JsonElement> GetBoard(string boardId, string key, string token)
     {
-        string url = $"/1/boards/{boardId}?key={key}&token={token}";
-        IAPIResponse response = await _request.GetAsync(url, new()
+        var url = $"/1/boards/{boardId}?key={key}&token={token}";
+        var response = await _request.GetAsync(url, new()
             {
                 Headers = headers.GetHeaders(),
             }
@@ -50,8 +50,8 @@ public class BoardsApi
         string id,
         Dictionary<string, object> parameters
     ) {
-        string url = $"/1/boards/{id}";
-        IAPIResponse response = await _request.PutAsync(url, new()
+        var url = $"/1/boards/{id}";
+        var response = await _request.PutAsync(url, new()
             {
                 Headers = headers.GetHeaders(),
                 Params = parameters
@@ -61,8 +61,8 @@ public class BoardsApi
     }
 
     public async Task<int> DeleteBoard(string boardId, string key, string token) {
-        string url = $"/1/boards/{boardId}?key={key}&token={token}";
-        IAPIResponse response = await _request.DeleteAsync(url, new()
+        var url = $"/1/boards/{boardId}?key={key}&token={token}";
+        var response = await _request.DeleteAsync(url, new()
             {
                 Headers = headers.GetHeaders()
             }

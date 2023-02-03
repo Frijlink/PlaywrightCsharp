@@ -22,9 +22,9 @@ public class BoardsTests : PageTest
         API = new ApiIndex(requestContext);
         token = config.API_TOKEN;
         key = config.API_KEY;
-        System.Text.Json.JsonElement tokenInfo = await API.apiToken.GetTokenInfo(key, token);
-        string memberId = tokenInfo.GetProperty("idMember").ToString();
-        System.Text.Json.JsonElement orgs = await API.membersApi.GetMemberOrganizations(memberId, key, token);
+        var tokenInfo = await API.apiToken.GetTokenInfo(key, token);
+        var memberId = tokenInfo.GetProperty("idMember").ToString();
+        var orgs = await API.membersApi.GetMemberOrganizations(memberId, key, token);
         organizationId = orgs[0].GetProperty("id").ToString();
     }
 
@@ -47,13 +47,13 @@ public class BoardsTests : PageTest
         if (requestContext == null) requestContext = await CreateContext();
         if (API == null) API = new ApiIndex(requestContext);
 
-        TestDataGenerator generator = new TestDataGenerator();
-        string boardName = generator.GenerateBoardName();
-        string updatedBoardName = generator.GenerateBoardName();
-        string backgroundColour = "purple";
-        string updatedBackgroundColour = "pink";
-        string visibility = "org";
-        string updatedVisibility = "private";
+        var dataGenerator = new TestDataGenerator();
+        var boardName = dataGenerator.GenerateBoardName();
+        var updatedBoardName = dataGenerator.GenerateBoardName();
+        var backgroundColour = "purple";
+        var updatedBackgroundColour = "pink";
+        var visibility = "org";
+        var updatedVisibility = "private";
 
         // Create Board
         var responseBodyCreate = await API.boardsApi.CreateBoard(key, token, boardName, backgroundColour, visibility);
@@ -75,7 +75,7 @@ public class BoardsTests : PageTest
         StringAssert.AreEqualIgnoringCase(respReadPrefs.GetProperty("permissionLevel").ToString(), visibility);
 
         // Update Board
-        Dictionary<string, object> parameters = new Dictionary<string, object>();
+        var parameters = new Dictionary<string, object>();
         parameters.Add("key", key);
         parameters.Add("token", token);
         parameters.Add("name", updatedBoardName);
@@ -90,7 +90,7 @@ public class BoardsTests : PageTest
         // StringAssert.AreEqualIgnoringCase(respUpdatePrefs.GetProperty("permissionLevel").ToString(), updatedVisibility);
 
         // Close Board
-        Dictionary<string, object> closeBoardParams = new Dictionary<string, object>();
+        var closeBoardParams = new Dictionary<string, object>();
         closeBoardParams.Add("key", key);
         closeBoardParams.Add("token", token);
         closeBoardParams.Add("closed", "true");
@@ -105,7 +105,7 @@ public class BoardsTests : PageTest
 
     public async Task<IAPIRequestContext> CreateContext()
     {
-        HeaderConstructor headers = new HeaderConstructor();
+        var headers = new HeaderConstructor();
         headers.AddHeaders("Accept", "application/json");
         return await this.Playwright.APIRequest.NewContextAsync(new() {
             BaseURL = config.API_URL,

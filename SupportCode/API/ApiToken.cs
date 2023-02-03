@@ -12,10 +12,10 @@ public class ApiToken
 
     public async Task<System.Text.Json.JsonElement> GetTokenInfo(string apiKey, string apiToken)
     {
-        MyConfig config = new MyConfig();
-        string url = $"{config.API_URL}/1/tokens/{apiToken}?key={apiKey}&token={apiToken}";
+        var config = new MyConfig();
+        var url = $"{config.API_URL}/1/tokens/{apiToken}?key={apiKey}&token={apiToken}";
         headers.AddHeaders("Accept", "application/json");
-        IAPIResponse response = await _request.GetAsync(url, new() {
+        var response = await _request.GetAsync(url, new() {
             Headers = headers.GetHeaders()
         });
         return (System.Text.Json.JsonElement)await response.JsonAsync();

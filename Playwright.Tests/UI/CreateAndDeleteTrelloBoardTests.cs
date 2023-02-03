@@ -30,9 +30,9 @@ public class CreateAndDeleteTrelloBoardTests : PageTest
     {
         if (trello == null) trello = new TrelloIndex(Page);
 
-        TestDataGenerator generator = new TestDataGenerator();
-        string boardName = generator.GenerateBoardName();
-        string updatedBoardName = generator.GenerateBoardName();
+        var dataGenerator = new TestDataGenerator();
+        var boardName = dataGenerator.GenerateBoardName();
+        var updatedBoardName = dataGenerator.GenerateBoardName();
 
         // Create
         await trello.homePage.CreateNewBoard(boardName, "Purple");

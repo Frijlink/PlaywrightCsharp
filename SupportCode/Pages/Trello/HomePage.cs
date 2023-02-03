@@ -53,12 +53,13 @@ public class HomePage
         await _page.RunAndWaitForResponseAsync(async () =>
         {
             await _newBoardBtn.ClickAsync();
+            // TODO: this url should not be hardcoded
         }, "https://api-gateway.trello.com/gateway/api/gasv3/api/v1/batch");
         await GetBackGroundColourBtn(backgroundColour).ClickAsync();
         await _newBoardNameInput.TypeAsync(name, new() { Delay = 50 });
         await _createNewBoardSubmitBtn.WaitForAsync(new() { State = WaitForSelectorState.Attached });
         await _createNewBoardSubmitBtn.ClickAsync();
-        string newName = name.Replace("_", string.Empty).ToLower();
+        var newName = name.Replace("_", string.Empty).ToLower();
         await _page.WaitForURLAsync($"**/{newName}");
     }
 }
