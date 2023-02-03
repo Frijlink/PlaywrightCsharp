@@ -1,9 +1,9 @@
 using Microsoft.Playwright;
+using static Configuration;
 
 public class MembersApi
 {
     private readonly IAPIRequestContext _request;
-    MyConfig config = new MyConfig();
     HeaderConstructor headers = new HeaderConstructor();
 
     public MembersApi(IAPIRequestContext request)
@@ -23,7 +23,7 @@ public class MembersApi
 
     public async Task<System.Text.Json.JsonElement> GetMemberOrganizations(string memberId, string apiKey, string apiToken)
     {
-        var url = $"{config.API_URL}/1/members/{memberId}/organizations?key={apiKey}&token={apiToken}";
+        var url = $"{GetEnvironmentVariable("TRELLO_API_URL")}/1/members/{memberId}/organizations?key={apiKey}&token={apiToken}";
         headers.AddHeaders("Accept", "application/json");
         var response = await _request.GetAsync(url, new() {
             Headers = headers.GetHeaders()

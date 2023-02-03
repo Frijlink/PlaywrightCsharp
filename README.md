@@ -15,7 +15,17 @@ Follow the steps [here](https://playwright.dev/dotnet/docs/intro), follow the st
 
 Install [Faket.net](https://github.com/Kuree/Faker.Net)-package with `dotnet add package Faker.Net`
 
-Fill in your credentials in `MyConfig.cs`.
+Set the following Environment Variables
+
+| key              | value                   |
+|------------------|-------------------------|
+| RETRIES          | "0"                     |
+| TRELLO_BASE_URL  | "http://trello.com"     |
+| TRELLO_USERNAME  |                         |
+| TRELLO_PASSWORD  |                         |
+| TRELLO_API_URL   |"https://api.trello.com" |
+| TRELLO_API_KEY   |                         |
+| TRELLO_API_TOKEN |                         |
 
 ## How to run the tests ##
 
@@ -24,9 +34,8 @@ Fill in your credentials in `MyConfig.cs`.
 
 ## TODO: ##
 
+* get rid of unnecassary casting?
+* Fluentassert vs Assert
 * Parallel tests
 * Screenshot on save
 * HTML report (or trx)
-* Get rid of MyConfig.cs (dotnet user-secrets?)
-* get rid of unnecassary casting?
-* Fluentassert vs Assert

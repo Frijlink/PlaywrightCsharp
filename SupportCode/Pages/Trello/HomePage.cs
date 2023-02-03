@@ -1,4 +1,5 @@
 using Microsoft.Playwright;
+using static Configuration;
 
 public class HomePage
 {
@@ -29,8 +30,7 @@ public class HomePage
 
     public async Task GoTo()
     {
-        MyConfig config = new MyConfig();
-        await _page.GotoAsync(config.BASE_URL);
+        await _page.GotoAsync(GetEnvironmentVariable("TRELLO_BASE_URL"));
     }
 
     public ILocator GetSectionHeader() {

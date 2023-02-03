@@ -13,7 +13,7 @@ public class HeaderComponent
         _page = page;
         _logInBtn = page.Locator("css=a[class^=\"Buttonsstyles\"][href=\"/login\"]");
         _memberInfoBtn = page.Locator("css=[data-testid=\"header-member-menu-button\"]");
-        _memberInfoLogoutBtn = page.Locator("css=[data-testid=\"header-member-menu-logout\"]");
+        _memberInfoLogoutBtn = page.Locator("css=[data-testid=\"account-menu-logout\"]");
         _logoutSubmitBtn = page.Locator("css=button#logout-submit");
     }
 

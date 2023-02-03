@@ -1,5 +1,6 @@
 using Microsoft.Playwright.NUnit;
 using Microsoft.Playwright;
+using static Configuration;
 
 namespace PlaywrightTests;
 
@@ -7,7 +8,6 @@ namespace PlaywrightTests;
 [TestFixture]
 public class BoardsTests : PageTest
 {
-    MyConfig config = new MyConfig();
     private IAPIRequestContext? requestContext;
     private ApiIndex? API;
     private string token = "";
@@ -20,8 +20,8 @@ public class BoardsTests : PageTest
     {
         requestContext = await CreateContext();
         API = new ApiIndex(requestContext);
-        token = config.API_TOKEN;
-        key = config.API_KEY;
+        token = GetEnvironmentVariable("TRELLO_API_TOKEN");
+        key = GetEnvironmentVariable("TRELLO_API_KEY");
         var tokenInfo = await API.apiToken.GetTokenInfo(key, token);
         var memberId = tokenInfo.GetProperty("idMember").ToString();
         var orgs = await API.membersApi.GetMemberOrganizations(memberId, key, token);
@@ -108,7 +108,7 @@ public class BoardsTests : PageTest
         var headers = new HeaderConstructor();
         headers.AddHeaders("Accept", "application/json");
         return await this.Playwright.APIRequest.NewContextAsync(new() {
-            BaseURL = config.API_URL,
+            BaseURL = GetEnvironmentVariable("TRELLO_API_URL"),
             ExtraHTTPHeaders = headers.GetHeaders(),
         });
     }

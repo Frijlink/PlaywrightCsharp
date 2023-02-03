@@ -1,4 +1,5 @@
 using Microsoft.Playwright;
+using static Configuration;
 
 public class ApiToken
 {
@@ -12,8 +13,7 @@ public class ApiToken
 
     public async Task<System.Text.Json.JsonElement> GetTokenInfo(string apiKey, string apiToken)
     {
-        var config = new MyConfig();
-        var url = $"{config.API_URL}/1/tokens/{apiToken}?key={apiKey}&token={apiToken}";
+        var url = $"{GetEnvironmentVariable("TRELLO_API_URL")}/1/tokens/{apiToken}?key={apiKey}&token={apiToken}";
         headers.AddHeaders("Accept", "application/json");
         var response = await _request.GetAsync(url, new() {
             Headers = headers.GetHeaders()
