@@ -42,7 +42,7 @@ public class BoardsTests : PageTest
         }
     }
 
-    [Test]
+    [Test, Category("API")]
     public async Task CreateAndDeleteTrelloBoardThroughApi()
     {
         if (requestContext is null) requestContext = await CreateContext();

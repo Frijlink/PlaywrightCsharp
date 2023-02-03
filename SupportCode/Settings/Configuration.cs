@@ -1,9 +1,9 @@
 public static class Configuration
 {
-     public static string GetEnvironmentVariable(string envVar)
+     public static string GetEnvironmentVariable(string envVarKey)
      {
-        var str = Environment.GetEnvironmentVariable(envVar);
-        if (str is null) throw new Exception("failed to retrieve Environment Variables");
-        else return str;
+        var envar = Environment.GetEnvironmentVariable(envVarKey);
+        if (envar is null) throw new Exception($"failed to retrieve Environment Variables: {envVarKey}");
+        else return envar;
      }
 }

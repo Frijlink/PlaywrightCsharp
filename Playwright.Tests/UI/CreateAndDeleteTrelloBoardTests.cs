@@ -24,7 +24,7 @@ public class CreateAndDeleteTrelloBoardTests : PageTest
         await Expect(trello.homePage.GetSectionHeader()).ToContainTextAsync("YOUR WORKSPACES");
     }
 
-    [Test]
+    [Test, Category("UI")]
     public async Task CreateAndDeleteTrelloBoard()
     {
         if (trello is null) trello = new TrelloIndex(Page);

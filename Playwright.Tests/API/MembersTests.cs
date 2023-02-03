@@ -8,7 +8,7 @@ namespace PlaywrightTests;
 [TestFixture]
 public class MembersTests : PageTest
 {
-    [Test]
+    [Test, Category("API")]
     public async Task RetrieveAmountOfBoardsFromMember()
     {
         var requestContext = await CreateContext();

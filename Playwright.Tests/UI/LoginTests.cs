@@ -7,7 +7,7 @@ namespace PlaywrightTests;
 [TestFixture]
 public class LoginTests : PageTest
 {
-    [Test]
+    [Test, Category("UI")]
     public async Task LogginInAndOutOnTrelloDotCom()
     {
         TrelloIndex trello = new TrelloIndex(Page);
