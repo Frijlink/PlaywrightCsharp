@@ -1,4 +1,5 @@
 using Microsoft.Playwright.NUnit;
+using static Configuration;
 
 namespace PlaywrightTests;
 
@@ -6,17 +7,16 @@ namespace PlaywrightTests;
 [TestFixture]
 public class LoginTests : PageTest
 {
-    [Test]
+    [Test, Category("UI")]
     public async Task LogginInAndOutOnTrelloDotCom()
     {
-        MyConfig config = new MyConfig();
         TrelloIndex trello = new TrelloIndex(Page);
 
         await trello.homePage.GoTo();
         await trello.header.GetLoginButton().ClickAsync();
         await trello.loginPage.Login(
-            config.USER_NAME,
-            config.PASSWORD
+            GetEnvironmentVariable("TRELLO_USERNAME"),
+            GetEnvironmentVariable("TRELLO_PASSWORD")
         );
 
         await Expect(trello.homePage.GetSectionHeader()).ToContainTextAsync("YOUR WORKSPACES");

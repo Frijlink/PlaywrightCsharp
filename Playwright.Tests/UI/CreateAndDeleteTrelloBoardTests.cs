@@ -1,4 +1,5 @@
 using Microsoft.Playwright.NUnit;
+using static Configuration;
 
 namespace PlaywrightTests;
 
@@ -6,33 +7,31 @@ namespace PlaywrightTests;
 [TestFixture]
 public class CreateAndDeleteTrelloBoardTests : PageTest
 {
-    MyConfig? config;
     TrelloIndex? trello;
 
     [SetUp]
     public async Task Init()
     {
-        config = new MyConfig();
         trello = new TrelloIndex(Page);
 
         await trello.homePage.GoTo();
         await trello.header.GetLoginButton().ClickAsync();
         await trello.loginPage.Login(
-            config.USER_NAME,
-            config.PASSWORD
+            GetEnvironmentVariable("TRELLO_USERNAME"),
+            GetEnvironmentVariable("TRELLO_PASSWORD")
         );
 
         await Expect(trello.homePage.GetSectionHeader()).ToContainTextAsync("YOUR WORKSPACES");
     }
 
-    [Test]
+    [Test, Category("UI")]
     public async Task CreateAndDeleteTrelloBoard()
     {
-        if (trello == null) trello = new TrelloIndex(Page);
+        if (trello is null) trello = new TrelloIndex(Page);
 
-        TestDataGenerator generator = new TestDataGenerator();
-        string boardName = generator.GenerateBoardName();
-        string updatedBoardName = generator.GenerateBoardName();
+        var dataGenerator = new TestDataGenerator();
+        var boardName = dataGenerator.GenerateBoardName();
+        var updatedBoardName = dataGenerator.GenerateBoardName();
 
         // Create
         await trello.homePage.CreateNewBoard(boardName, "Purple");

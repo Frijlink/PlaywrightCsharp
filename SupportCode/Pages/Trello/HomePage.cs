@@ -1,4 +1,5 @@
 using Microsoft.Playwright;
+using static Configuration;
 
 public class HomePage
 {
@@ -29,8 +30,7 @@ public class HomePage
 
     public async Task GoTo()
     {
-        MyConfig config = new MyConfig();
-        await _page.GotoAsync(config.BASE_URL);
+        await _page.GotoAsync(GetEnvironmentVariable("TRELLO_BASE_URL"));
     }
 
     public ILocator GetSectionHeader() {
@@ -53,12 +53,13 @@ public class HomePage
         await _page.RunAndWaitForResponseAsync(async () =>
         {
             await _newBoardBtn.ClickAsync();
+            // TODO: this url should not be hardcoded
         }, "https://api-gateway.trello.com/gateway/api/gasv3/api/v1/batch");
         await GetBackGroundColourBtn(backgroundColour).ClickAsync();
         await _newBoardNameInput.TypeAsync(name, new() { Delay = 50 });
         await _createNewBoardSubmitBtn.WaitForAsync(new() { State = WaitForSelectorState.Attached });
         await _createNewBoardSubmitBtn.ClickAsync();
-        string newName = name.Replace("_", string.Empty).ToLower();
+        var newName = name.Replace("_", string.Empty).ToLower();
         await _page.WaitForURLAsync($"**/{newName}");
     }
 }
