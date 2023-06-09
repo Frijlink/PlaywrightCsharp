@@ -15,7 +15,7 @@ public class BoardPage
     {
         _page = page;
         _mainTitle = page.Locator("css=.board-header h1");
-        _boardNameInput = page.Locator("css=.board-name-input");
+        _boardNameInput = page.Locator("css=[data-testid=\"board-name-input\"]");
         _board = page.Locator("css=#board");
         _leftMenu = page.Locator("css=[data-testid=\"workspace-boards-and-views-lists\"]");
         _closeBoardMessage = page.Locator("css=[data-testid=\"close-board-big-message\"]");
