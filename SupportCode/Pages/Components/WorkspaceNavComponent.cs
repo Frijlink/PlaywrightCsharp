@@ -12,14 +12,14 @@ public class WorkspaceNavComponent
     public WorkspaceNavComponent(IPage page)
     {
         _page = page;
-        _nav = page.Locator("css=nav[data-testid=\"workspace-navigation-nav\"]");
-        _currentBoard = page.Locator("css=[aria-label$=\"(currently active)\"]");
-        _boardActionsMenuBtn = page.Locator("css=[aria-label=\"Board actions menu\"]");
-        _closeBoardBtn = page.Locator("css=[aria-label=\"Close board\"]");
-        _closeBtn = page.Locator("css=[title=\"Close\"]");
+        _nav = _page.Locator("css=nav[data-testid=\"workspace-navigation-nav\"]");
+        _currentBoard = _page.Locator("css=[aria-label$=\"(currently active)\"]");
+        _boardActionsMenuBtn = _page.Locator("css=[aria-label=\"Board actions menu\"]");
+        _closeBoardBtn = _page.Locator("css=[aria-label=\"Close board\"]");
+        _closeBtn = _page.Locator("css=[title=\"Close\"]");
     }
 
-    public async Task waitForNav()
+    public async Task WaitForNav()
     {
         await _nav.WaitForAsync();
     }

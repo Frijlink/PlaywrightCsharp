@@ -27,16 +27,15 @@ public class CreateAndDeleteTrelloBoardTests : PageTest
     [Test, Category("UI")]
     public async Task CreateAndDeleteTrelloBoard()
     {
-        if (trello is null) trello = new TrelloIndex(Page);
+        trello ??= new TrelloIndex(Page);
 
-        var dataGenerator = new TestDataGenerator();
-        var boardName = dataGenerator.GenerateBoardName();
-        var updatedBoardName = dataGenerator.GenerateBoardName();
+        var boardName = TestDataGenerator.GenerateBoardName();
+        var updatedBoardName = TestDataGenerator.GenerateBoardName();
 
         // Create
         await trello.homePage.CreateNewBoard(boardName, "🌈");
         await trello.boardPage.WaitForPageLoaded();
-        await trello.workSpaceNav.waitForNav();
+        await trello.workSpaceNav.WaitForNav();
 
         await Expect(trello.boardPage.GetMainTitle()).ToContainTextAsync(boardName);
 

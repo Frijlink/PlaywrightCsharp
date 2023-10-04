@@ -4,7 +4,7 @@ using static Configuration;
 public class ApiToken
 {
     private readonly IAPIRequestContext _request;
-    HeaderConstructor headers = new HeaderConstructor();
+    readonly HeaderConstructor headers = new();
 
     public ApiToken(IAPIRequestContext request)
     {

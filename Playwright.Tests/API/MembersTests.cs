@@ -24,7 +24,7 @@ public class MembersTests : PageTest
     {
         var headers = new HeaderConstructor();
         headers.AddHeaders("Accept", "application/json");
-        return await this.Playwright.APIRequest.NewContextAsync(new() {
+        return await Playwright.APIRequest.NewContextAsync(new() {
             BaseURL = GetEnvironmentVariable("TRELLO_API_URL"),
             ExtraHTTPHeaders = headers.GetHeaders(),
         });
