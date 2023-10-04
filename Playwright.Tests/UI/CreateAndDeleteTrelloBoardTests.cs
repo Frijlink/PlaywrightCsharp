@@ -29,9 +29,8 @@ public class CreateAndDeleteTrelloBoardTests : PageTest
     {
         trello ??= new TrelloIndex(Page);
 
-        var dataGenerator = new TestDataGenerator();
-        var boardName = dataGenerator.GenerateBoardName();
-        var updatedBoardName = dataGenerator.GenerateBoardName();
+        var boardName = TestDataGenerator.GenerateBoardName();
+        var updatedBoardName = TestDataGenerator.GenerateBoardName();
 
         // Create
         await trello.homePage.CreateNewBoard(boardName, "🌈");

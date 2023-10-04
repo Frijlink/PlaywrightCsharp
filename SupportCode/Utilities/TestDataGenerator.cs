@@ -1,6 +1,6 @@
-public class TestDataGenerator
+public static class TestDataGenerator
 {
-    public string GenerateBoardName()
+    public static string GenerateBoardName()
     {
         return string.Join('_', Faker.Lorem.Words(3));
     }

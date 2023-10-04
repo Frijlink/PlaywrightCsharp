@@ -49,9 +49,8 @@ public class BoardsTests : PageTest
         requestContext ??= await CreateContext();
         API ??= new ApiIndex(requestContext);
 
-        var dataGenerator = new TestDataGenerator();
-        var boardName = dataGenerator.GenerateBoardName();
-        var updatedBoardName = dataGenerator.GenerateBoardName();
+        var boardName = TestDataGenerator.GenerateBoardName();
+        var updatedBoardName = TestDataGenerator.GenerateBoardName();
         var backgroundColour = "purple";
         var updatedBackgroundColour = "pink";
         var visibility = "org";
