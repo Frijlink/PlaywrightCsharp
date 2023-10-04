@@ -11,7 +11,7 @@ public class HeaderComponent
     public HeaderComponent(IPage page)
     {
         _page = page;
-        _logInBtn = _page.Locator("css=a[class^=\"Buttonsstyles\"][href=\"/login\"]");
+        _logInBtn = _page.Locator("css=a[class^=\"Buttonsstyles\"][href*=\"/login\"]");
         _memberInfoBtn = _page.Locator("css=[data-testid=\"header-member-menu-button\"]");
         _memberInfoLogoutBtn = _page.Locator("css=[data-testid=\"account-menu-logout\"]");
         _logoutSubmitBtn = _page.Locator("css=button#logout-submit");
