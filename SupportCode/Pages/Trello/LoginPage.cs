@@ -11,10 +11,10 @@ public class LoginPage
     public LoginPage(IPage page)
     {
         _page = page;
-        _userInput = page.Locator("css=input#user");
-        _passwordInput = page.Locator("css=input#password");
-        _loginBtn = page.Locator("css=input#login");
-        _loginSubmitBtn = page.Locator("css=button#login-submit");
+        _userInput = _page.Locator("css=input#user");
+        _passwordInput = _page.Locator("css=input#password");
+        _loginBtn = _page.Locator("css=input#login");
+        _loginSubmitBtn = _page.Locator("css=button#login-submit");
     }
 
     public async Task Login(string user, string password)

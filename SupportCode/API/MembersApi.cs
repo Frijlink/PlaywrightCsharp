@@ -4,7 +4,7 @@ using static Configuration;
 public class MembersApi
 {
     private readonly IAPIRequestContext _request;
-    HeaderConstructor headers = new HeaderConstructor();
+    readonly HeaderConstructor headers = new();
 
     public MembersApi(IAPIRequestContext request)
     {

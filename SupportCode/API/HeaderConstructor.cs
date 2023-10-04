@@ -1,6 +1,6 @@
 public class HeaderConstructor
 {
-    private Dictionary<string, string> headers = new Dictionary<string, string>();
+    private readonly Dictionary<string, string> headers = new();
 
     public void AddHeaders(string key, string value)
     {

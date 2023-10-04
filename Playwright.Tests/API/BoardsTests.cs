@@ -10,10 +10,10 @@ public class BoardsTests : PageTest
 {
     private IAPIRequestContext? requestContext;
     private ApiIndex? API;
-    private string token = "";
-    private string key = "";
-    private string boardId = "";
-    private string organizationId = "";
+    private string token = string.Empty;
+    private string key = string.Empty;
+    private string boardId = string.Empty;
+    private string organizationId = string.Empty;
 
     [SetUp]
     public async Task Init()
@@ -31,8 +31,9 @@ public class BoardsTests : PageTest
     [TearDown]
     public async Task DeleteAllBoards()
     {
-        if (requestContext is null) requestContext = await CreateContext();
-        if (API is null) API = new ApiIndex(requestContext);
+        requestContext ??= await CreateContext();
+        API ??= new ApiIndex(requestContext);
+
         var boards = await API.membersApi.GetBoardsFromMember(key, token);
         foreach (var board in boards.EnumerateArray())
         {
@@ -45,8 +46,8 @@ public class BoardsTests : PageTest
     [Test, Category("API")]
     public async Task CreateAndDeleteTrelloBoardThroughApi()
     {
-        if (requestContext is null) requestContext = await CreateContext();
-        if (API is null) API = new ApiIndex(requestContext);
+        requestContext ??= await CreateContext();
+        API ??= new ApiIndex(requestContext);
 
         var dataGenerator = new TestDataGenerator();
         var boardName = dataGenerator.GenerateBoardName();
@@ -76,12 +77,14 @@ public class BoardsTests : PageTest
         Assert.That(respReadPrefs.GetProperty("permissionLevel").ToString(), Is.EqualTo(visibility));
 
         // Update Board
-        var parameters = new Dictionary<string, object>();
-        parameters.Add("key", key);
-        parameters.Add("token", token);
-        parameters.Add("name", updatedBoardName);
-        parameters.Add("prefs/background", updatedBackgroundColour);
-        parameters.Add("prefs/visibility", updatedVisibility);
+        var parameters = new Dictionary<string, object>
+        {
+            { "key", key },
+            { "token", token },
+            { "name", updatedBoardName },
+            { "prefs/background", updatedBackgroundColour },
+            { "prefs/visibility", updatedVisibility }
+        };
         var responseBodyUpdate = await API.boardsApi.UpdateBoard(boardId, parameters);
         var respUpdatePrefs = responseBodyUpdate.GetProperty("prefs");
         Assert.That(responseBodyUpdate.GetProperty("idOrganization").ToString(), Is.EqualTo(organizationId));
@@ -91,10 +94,12 @@ public class BoardsTests : PageTest
         // Assert.That(respUpdatePrefs.GetProperty("permissionLevel").ToString(), Is.EqualTo(updatedVisibility));
 
         // Close Board
-        var closeBoardParams = new Dictionary<string, object>();
-        closeBoardParams.Add("key", key);
-        closeBoardParams.Add("token", token);
-        closeBoardParams.Add("closed", "true");
+        var closeBoardParams = new Dictionary<string, object>
+        {
+            { "key", key },
+            { "token", token },
+            { "closed", "true" }
+        };
         await API.boardsApi.UpdateBoard(boardId, closeBoardParams);
         var responseBodyClose = await API.boardsApi.GetBoard(boardId, key, token);
         Assert.That(responseBodyClose.GetProperty("closed").ToString(), Is.EqualTo("True"));
@@ -109,7 +114,7 @@ public class BoardsTests : PageTest
     {
         var headers = new HeaderConstructor();
         headers.AddHeaders("Accept", "application/json");
-        return await this.Playwright.APIRequest.NewContextAsync(new() {
+        return await Playwright.APIRequest.NewContextAsync(new() {
             BaseURL = GetEnvironmentVariable("TRELLO_API_URL"),
             ExtraHTTPHeaders = headers.GetHeaders(),
         });

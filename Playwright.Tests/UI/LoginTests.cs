@@ -10,7 +10,7 @@ public class LoginTests : PageTest
     [Test, Category("UI")]
     public async Task LogginInAndOutOnTrelloDotCom()
     {
-        TrelloIndex trello = new TrelloIndex(Page);
+        TrelloIndex trello = new(Page);
 
         await trello.homePage.GoTo();
         await trello.header.GetLoginButton().ClickAsync();

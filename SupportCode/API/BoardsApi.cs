@@ -3,7 +3,7 @@ using Microsoft.Playwright;
 public class BoardsApi
 {
     private readonly IAPIRequestContext _request;
-    HeaderConstructor headers = new HeaderConstructor();
+    readonly HeaderConstructor headers = new();
 
     public BoardsApi(IAPIRequestContext request)
     {
