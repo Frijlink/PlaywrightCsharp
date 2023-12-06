@@ -18,13 +18,13 @@ public class HomePage
     {
         _page = page;
         _sectionHeader = page.Locator("css=h3.boards-page-section-header-name");
-        _newBoardBtn = page.Locator("css=[data-testid=\"create-board-tile\"]");
-        _newBoardNameInput = page.Locator("css=[data-testid=\"create-board-title-input\"]");
+        _newBoardBtn = page.GetByTestId("create-board-tile");
+        _newBoardNameInput = page.GetByTestId("create-board-title-input");
         _selectVisibilityDropdown = page.Locator("css=[id$=\"create-board-select-visibility\"] > div > div > div:nth-child(1)");
         _visibilityPrivateBtn = page.Locator("css=#react-select-4-option-0 li");
         _visibilityWorkspaceBtn = page.Locator("css=#react-select-4-option-1 li");
         _visibilityPublicBtn = page.Locator("css=#react-select-4-option-2 li");
-        _createNewBoardSubmitBtn = page.Locator("css=[data-testid=\"create-board-submit-button\"]");
+        _createNewBoardSubmitBtn = page.GetByTestId("create-board-submit-button");
         _boardTileTitle = page.Locator("css=.board-tile-details-name");
     }
 
@@ -40,7 +40,7 @@ public class HomePage
     public async Task<IReadOnlyList<string>> GetAllBoardNames()
     {
         return (await _boardTileTitle.IsVisibleAsync())
-            ? await (_boardTileTitle).AllInnerTextsAsync()
+            ? await _boardTileTitle.AllInnerTextsAsync()
             : new List<string>();
     }
 
@@ -50,11 +50,7 @@ public class HomePage
     }
 
     public async Task CreateNewBoard(string name, string backgroundColour) {
-        await _page.RunAndWaitForResponseAsync(async () =>
-        {
-            await _newBoardBtn.ClickAsync();
-            // TODO: this url should not be hardcoded
-        }, "https://api-gateway.trello.com/gateway/api/gasv3/api/v1/batch");
+        await _newBoardBtn.ClickAsync();
         await GetBackGroundColourBtn(backgroundColour).ClickAsync();
         await _newBoardNameInput.FillAsync(name);
         await _createNewBoardSubmitBtn.WaitForAsync(new() { State = WaitForSelectorState.Attached });
