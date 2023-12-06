@@ -31,6 +31,7 @@ Set the following Environment Variables
 
 * Run all the tests with `dotnet test --settings:.runsettings`
 * Run a single test with `dotnet test --settings:.runsettings --filter "MyClassName"`
+* Run a single category with `dotnet test --settings:.runsettings --filter TestCategory=MyCategory`
 
 ## TODO: ##
 
