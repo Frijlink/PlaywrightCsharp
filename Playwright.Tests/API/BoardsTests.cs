@@ -1,8 +1,11 @@
 using Microsoft.Playwright.NUnit;
 using Microsoft.Playwright;
-using static Configuration;
+using PlaywrightCsharp.SupportCode.Api;
+using PlaywrightCsharp.SupportCode.Utilities;
+using static PlaywrightCsharp.SupportCode.Api.Context;
+using static PlaywrightCsharp.SupportCode.Settings.Configuration;
 
-namespace PlaywrightTests;
+namespace PlaywrightTests.API;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
@@ -18,7 +21,7 @@ public class BoardsTests : PageTest
     [SetUp]
     public async Task Init()
     {
-        requestContext = await CreateContext();
+        requestContext = await CreateContext(Playwright.APIRequest);
         API = new ApiIndex(requestContext);
         token = GetEnvironmentVariable("TRELLO_API_TOKEN");
         key = GetEnvironmentVariable("TRELLO_API_KEY");
@@ -31,7 +34,7 @@ public class BoardsTests : PageTest
     [TearDown]
     public async Task DeleteAllBoards()
     {
-        requestContext ??= await CreateContext();
+        requestContext ??= await CreateContext(Playwright.APIRequest);
         API ??= new ApiIndex(requestContext);
 
         var boards = await API.membersApi.GetBoardsFromMember(key, token);
@@ -46,7 +49,7 @@ public class BoardsTests : PageTest
     [Test, Category("API")]
     public async Task CreateAndDeleteTrelloBoardThroughApi()
     {
-        requestContext ??= await CreateContext();
+        requestContext ??= await CreateContext(Playwright.APIRequest);
         API ??= new ApiIndex(requestContext);
 
         var boardName = TestDataGenerator.GenerateBoardName();
@@ -107,15 +110,5 @@ public class BoardsTests : PageTest
         // Delete Board
         var responseStatusDelete = await API.boardsApi.DeleteBoard(boardId, key, token);
         Assert.That(responseStatusDelete, Is.EqualTo(200));
-    }
-
-    public async Task<IAPIRequestContext> CreateContext()
-    {
-        var headers = new HeaderConstructor();
-        headers.AddHeaders("Accept", "application/json");
-        return await Playwright.APIRequest.NewContextAsync(new() {
-            BaseURL = GetEnvironmentVariable("TRELLO_API_URL"),
-            ExtraHTTPHeaders = headers.GetHeaders(),
-        });
     }
 }

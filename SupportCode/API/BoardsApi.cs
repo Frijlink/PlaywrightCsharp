@@ -1,5 +1,7 @@
 using Microsoft.Playwright;
 
+namespace PlaywrightCsharp.SupportCode.Api;
+
 public class BoardsApi
 {
     private readonly IAPIRequestContext _request;

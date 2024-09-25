@@ -1,7 +1,9 @@
 using Microsoft.Playwright.NUnit;
-using static Configuration;
+using PlaywrightCsharp.SupportCode.Pages.Trello;
+using PlaywrightCsharp.SupportCode.Utilities;
+using static PlaywrightCsharp.SupportCode.Settings.Configuration;
 
-namespace PlaywrightTests;
+namespace PlaywrightTests.UI;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
@@ -45,11 +47,13 @@ public class CreateAndDeleteTrelloBoardTests : PageTest
 
         // Close
         await trello.workSpaceNav.CloseCurrentBoard();
-        await Expect(trello.boardPage.GetCloseBoardMessage()).ToContainTextAsync($"{updatedBoardName} is closed.");
+        await Expect(trello.boardPage.GetCloseBoardMessage()).ToContainTextAsync("This board is closed. Reopen the board to make changes.");
 
         // Delete
         await trello.boardPage.DeleteBoard();
 
+        // Don't see the board
+        await trello.header.getTrelloBtn().ClickAsync();
         await Expect(trello.homePage.GetSectionHeader()).ToContainTextAsync("YOUR WORKSPACES");
         // await Expect(await trello.homePage.GetAllBoardNames()).not.ToContainTextAsync(updatedBoardName);
         Console.WriteLine(await trello.homePage.GetAllBoardNames());

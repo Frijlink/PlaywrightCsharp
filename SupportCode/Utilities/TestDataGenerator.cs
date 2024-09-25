@@ -1,3 +1,5 @@
+namespace PlaywrightCsharp.SupportCode.Utilities;
+
 public static class TestDataGenerator
 {
     public static string GenerateBoardName()

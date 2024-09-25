@@ -1,5 +1,7 @@
 using Microsoft.Playwright;
 
+namespace PlaywrightCsharp.SupportCode.Pages.Trello;
+
 public class LoginPage
 {
     private readonly IPage _page;
@@ -10,8 +12,8 @@ public class LoginPage
     public LoginPage(IPage page)
     {
         _page = page;
-        _userInput = _page.Locator("css=input#username");
-        _passwordInput = _page.Locator("css=input#password");
+        _userInput = _page.GetByTestId("username");
+        _passwordInput = _page.GetByTestId("password");
         _loginSubmitBtn = _page.Locator("css=button#login-submit");
     }
 
