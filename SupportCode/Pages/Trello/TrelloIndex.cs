@@ -1,4 +1,7 @@
 using Microsoft.Playwright;
+using PlaywrightCsharp.SupportCode.Pages.Components;
+
+namespace PlaywrightCsharp.SupportCode.Pages.Trello;
 
 public class TrelloIndex {
     private readonly IPage _page;

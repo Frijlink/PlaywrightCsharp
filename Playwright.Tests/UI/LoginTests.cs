@@ -1,7 +1,8 @@
 using Microsoft.Playwright.NUnit;
-using static Configuration;
+using PlaywrightCsharp.SupportCode.Pages.Trello;
+using static PlaywrightCsharp.SupportCode.Settings.Configuration;
 
-namespace PlaywrightTests;
+namespace PlaywrightTests.UI;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]

@@ -1,5 +1,7 @@
 using Microsoft.Playwright;
 
+namespace PlaywrightCsharp.SupportCode.Pages.Components;
+
 public class HeaderComponent
 {
     private readonly IPage _page;
@@ -7,19 +9,26 @@ public class HeaderComponent
     private readonly ILocator _memberInfoBtn;
     private readonly ILocator _memberInfoLogoutBtn;
     private readonly ILocator _logoutSubmitBtn;
+    private readonly ILocator _trelloBtn;
 
     public HeaderComponent(IPage page)
     {
         _page = page;
-        _logInBtn = _page.Locator("css=a[class^=\"Buttonsstyles\"][href*=\"/login\"]");
-        _memberInfoBtn = _page.Locator("css=[data-testid=\"header-member-menu-button\"]");
-        _memberInfoLogoutBtn = _page.Locator("css=[data-testid=\"account-menu-logout\"]");
+        _logInBtn = _page.Locator("css=header a[class^=\"Buttonsstyles__Button\"][href*=\"login?application=trello\"]");
+        _memberInfoBtn = _page.GetByTestId("header-member-menu-button");
+        _memberInfoLogoutBtn = _page.GetByTestId("account-menu-logout");
         _logoutSubmitBtn = _page.Locator("css=button#logout-submit");
+        _trelloBtn = _page.GetByLabel("Back to home");
     }
 
     public ILocator GetLoginButton()
     {
         return _logInBtn;
+    }
+
+    public ILocator getTrelloBtn()
+    {
+        return _trelloBtn;
     }
 
     public async Task LogOut()

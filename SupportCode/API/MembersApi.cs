@@ -1,5 +1,7 @@
 using Microsoft.Playwright;
-using static Configuration;
+using static PlaywrightCsharp.SupportCode.Settings.Configuration;
+
+namespace PlaywrightCsharp.SupportCode.Api;
 
 public class MembersApi
 {
