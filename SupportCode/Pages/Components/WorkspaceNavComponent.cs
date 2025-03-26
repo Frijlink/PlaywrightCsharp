@@ -8,7 +8,6 @@ public class WorkspaceNavComponent
     private readonly ILocator _nav;
     private readonly ILocator _currentBoard;
     private readonly ILocator _boardActionsMenuBtn;
-    private readonly ILocator _boardMenu;
     private readonly ILocator _closeBoardBtn;
     private readonly ILocator _closeBtn;
 
@@ -18,7 +17,6 @@ public class WorkspaceNavComponent
         _nav = _page.GetByTestId("workspace-navigation-nav");
         _currentBoard = _page.GetByLabel("(currently active)");
         _boardActionsMenuBtn = _page.GetByLabel("Board actions menu");
-        _boardMenu = _page.GetByLabel("Show menu");
         _closeBoardBtn = _page.GetByLabel("Close board");
         _closeBtn = _page.GetByTestId("popover-close-board-confirm");
     }

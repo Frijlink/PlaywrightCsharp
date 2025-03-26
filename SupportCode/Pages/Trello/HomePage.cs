@@ -9,10 +9,6 @@ public class HomePage
     private readonly ILocator _sectionHeader;
     private readonly ILocator _newBoardBtn;
     private readonly ILocator _newBoardNameInput;
-    private readonly ILocator _selectVisibilityDropdown;
-    private readonly ILocator _visibilityPrivateBtn;
-    private readonly ILocator _visibilityWorkspaceBtn;
-    private readonly ILocator _visibilityPublicBtn;
     private readonly ILocator _createNewBoardSubmitBtn;
     private readonly ILocator _boardTileTitle;
 
@@ -22,10 +18,6 @@ public class HomePage
         _sectionHeader = page.Locator("css=h3.boards-page-section-header-name");
         _newBoardBtn = page.GetByTestId("create-board-tile");
         _newBoardNameInput = page.GetByTestId("create-board-title-input");
-        _selectVisibilityDropdown = page.Locator("css=[id$=\"create-board-select-visibility\"] > div > div > div:nth-child(1)");
-        _visibilityPrivateBtn = page.Locator("css=#react-select-4-option-0 li");
-        _visibilityWorkspaceBtn = page.Locator("css=#react-select-4-option-1 li");
-        _visibilityPublicBtn = page.Locator("css=#react-select-4-option-2 li");
         _createNewBoardSubmitBtn = page.GetByTestId("create-board-submit-button");
         _boardTileTitle = page.Locator("css=.board-tile-details-name");
     }

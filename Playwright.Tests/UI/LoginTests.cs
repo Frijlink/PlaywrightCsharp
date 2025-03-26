@@ -2,7 +2,7 @@ using Microsoft.Playwright.NUnit;
 using PlaywrightCsharp.SupportCode.Pages.Trello;
 using static PlaywrightCsharp.SupportCode.Settings.Configuration;
 
-namespace PlaywrightTests.UI;
+namespace PlaywrightCsharp.Playwright.Tests.UI;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]

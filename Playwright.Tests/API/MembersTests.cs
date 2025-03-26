@@ -1,10 +1,9 @@
 using Microsoft.Playwright.NUnit;
-using Microsoft.Playwright;
 using PlaywrightCsharp.SupportCode.Api;
 using static PlaywrightCsharp.SupportCode.Api.Context;
 using static PlaywrightCsharp.SupportCode.Settings.Configuration;
 
-namespace PlaywrightTests.API;
+namespace PlaywrightCsharp.Playwright.Tests.API;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
@@ -19,6 +18,6 @@ public class MembersTests : PageTest
         var key = GetEnvironmentVariable("TRELLO_API_KEY");
 
         var boards = await API.membersApi.GetBoardsFromMember(key, token);
-        Assert.That(boards.ToString() == "[]");
+        Assert.That(boards.ToString(), Is.EqualTo("[]"));
     }
 }
