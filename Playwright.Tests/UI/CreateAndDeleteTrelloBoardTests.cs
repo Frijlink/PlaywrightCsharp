@@ -3,7 +3,7 @@ using PlaywrightCsharp.SupportCode.Pages.Trello;
 using PlaywrightCsharp.SupportCode.Utilities;
 using static PlaywrightCsharp.SupportCode.Settings.Configuration;
 
-namespace PlaywrightTests.UI;
+namespace PlaywrightCsharp.Playwright.Tests.UI;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
@@ -53,7 +53,7 @@ public class CreateAndDeleteTrelloBoardTests : PageTest
         await trello.boardPage.DeleteBoard();
 
         // Don't see the board
-        await trello.header.getTrelloBtn().ClickAsync();
+        await trello.header.GetTrelloBtn().ClickAsync();
         await Expect(trello.homePage.GetSectionHeader()).ToContainTextAsync("YOUR WORKSPACES");
         // await Expect(await trello.homePage.GetAllBoardNames()).not.ToContainTextAsync(updatedBoardName);
         Console.WriteLine(await trello.homePage.GetAllBoardNames());

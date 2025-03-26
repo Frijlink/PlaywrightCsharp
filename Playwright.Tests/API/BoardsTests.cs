@@ -5,7 +5,7 @@ using PlaywrightCsharp.SupportCode.Utilities;
 using static PlaywrightCsharp.SupportCode.Api.Context;
 using static PlaywrightCsharp.SupportCode.Settings.Configuration;
 
-namespace PlaywrightTests.API;
+namespace PlaywrightCsharp.Playwright.Tests.API;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]

@@ -26,7 +26,7 @@ public class HeaderComponent
         return _logInBtn;
     }
 
-    public ILocator getTrelloBtn()
+    public ILocator GetTrelloBtn()
     {
         return _trelloBtn;
     }
