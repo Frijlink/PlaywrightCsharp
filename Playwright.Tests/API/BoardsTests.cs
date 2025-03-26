@@ -1,5 +1,3 @@
-using Microsoft.Playwright.NUnit;
-using Microsoft.Playwright;
 using PlaywrightCsharp.SupportCode.Api;
 using PlaywrightCsharp.SupportCode.Utilities;
 using static PlaywrightCsharp.SupportCode.Api.Context;
