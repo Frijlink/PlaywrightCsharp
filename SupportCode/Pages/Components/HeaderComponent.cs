@@ -1,5 +1,3 @@
-using Microsoft.Playwright;
-
 namespace PlaywrightCsharp.SupportCode.Pages.Components;
 
 public class HeaderComponent

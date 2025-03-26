@@ -1,4 +1,3 @@
-using Microsoft.Playwright.NUnit;
 using PlaywrightCsharp.SupportCode.Pages.Trello;
 using PlaywrightCsharp.SupportCode.Utilities;
 using static PlaywrightCsharp.SupportCode.Settings.Configuration;
