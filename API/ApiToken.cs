@@ -1,20 +1,15 @@
-using static PlaywrightCsharp.SupportCode.Settings.Configuration;
+using PlaywrightCsharp.Playwright.Tests;
 
-namespace PlaywrightCsharp.SupportCode.Api;
+namespace PlaywrightCsharp.Api;
 
-public class ApiToken
+public class ApiToken(IAPIRequestContext request)
 {
-    private readonly IAPIRequestContext _request;
+    private readonly IAPIRequestContext _request = request;
     readonly HeaderConstructor headers = new();
-
-    public ApiToken(IAPIRequestContext request)
-    {
-        _request = request;
-    }
 
     public async Task<System.Text.Json.JsonElement> GetTokenInfo(string apiKey, string apiToken)
     {
-        var url = $"{GetEnvironmentVariable("TRELLO_API_URL")}/1/tokens/{apiToken}?key={apiKey}&token={apiToken}";
+        var url = $"{BasePage.API_URL}/1/tokens/{apiToken}?key={apiKey}&token={apiToken}";
         headers.AddHeaders("Accept", "application/json");
         var response = await _request.GetAsync(url, new() {
             Headers = headers.GetHeaders()

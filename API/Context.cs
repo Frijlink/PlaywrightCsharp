@@ -1,6 +1,6 @@
-using static PlaywrightCsharp.SupportCode.Settings.Configuration;
+using PlaywrightCsharp.Playwright.Tests;
 
-namespace PlaywrightCsharp.SupportCode.Api;
+namespace PlaywrightCsharp.Api;
 
 public class Context
 {
@@ -9,7 +9,7 @@ public class Context
         var headers = new HeaderConstructor();
         headers.AddHeaders("Accept", "application/json");
         return await apiRequest.NewContextAsync(new() {
-            BaseURL = GetEnvironmentVariable("TRELLO_API_URL"),
+            BaseURL = BasePage.API_URL,
             ExtraHTTPHeaders = headers.GetHeaders(),
         });
     }

@@ -1,4 +1,4 @@
-namespace PlaywrightCsharp.SupportCode.Pages.Components;
+namespace PlaywrightCsharp.Pages.Components;
 
 public class WorkspaceNavComponent
 {
@@ -19,10 +19,7 @@ public class WorkspaceNavComponent
         _closeBtn = _page.GetByTestId("popover-close-board-confirm");
     }
 
-    public async Task WaitForNav()
-    {
-        await _nav.WaitForAsync();
-    }
+    public async Task WaitForNav() =>  await _nav.WaitForAsync();
 
     public async Task CloseCurrentBoard()
     {

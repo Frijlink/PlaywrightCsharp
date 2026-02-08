@@ -1,11 +1,10 @@
-using PlaywrightCsharp.SupportCode.Pages.Trello;
-using static PlaywrightCsharp.SupportCode.Settings.Configuration;
+using PlaywrightCsharp.Pages.Trello;
 
 namespace PlaywrightCsharp.Playwright.Tests.UI;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
-public class LoginTests : PageTest
+public class LoginTests : BasePage
 {
     [Test, Category("UI")]
     public async Task LogginInAndOutOnTrelloDotCom()
@@ -14,10 +13,7 @@ public class LoginTests : PageTest
 
         await trello.homePage.GoTo();
         await trello.header.GetLoginButton().ClickAsync();
-        await trello.loginPage.Login(
-            GetEnvironmentVariable("TRELLO_USERNAME"),
-            GetEnvironmentVariable("TRELLO_PASSWORD")
-        );
+        await trello.loginPage.Login(USERNAME, PASSWORD);
 
         await Expect(trello.homePage.GetSectionHeader()).ToContainTextAsync("YOUR WORKSPACES");
 

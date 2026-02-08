@@ -1,12 +1,10 @@
-using PlaywrightCsharp.SupportCode.Pages.Trello;
-using PlaywrightCsharp.SupportCode.Utilities;
-using static PlaywrightCsharp.SupportCode.Settings.Configuration;
+using PlaywrightCsharp.Pages.Trello;
 
 namespace PlaywrightCsharp.Playwright.Tests.UI;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
-public class CreateAndDeleteTrelloBoardTests : PageTest
+public class CreateAndDeleteTrelloBoardTests : BasePage
 {
     TrelloIndex? trello;
 
@@ -17,10 +15,7 @@ public class CreateAndDeleteTrelloBoardTests : PageTest
 
         await trello.homePage.GoTo();
         await trello.header.GetLoginButton().ClickAsync();
-        await trello.loginPage.Login(
-            GetEnvironmentVariable("TRELLO_USERNAME"),
-            GetEnvironmentVariable("TRELLO_PASSWORD")
-        );
+        await trello.loginPage.Login(USERNAME, PASSWORD);
 
         await Expect(trello.homePage.GetSectionHeader()).ToContainTextAsync("YOUR WORKSPACES");
     }
@@ -30,8 +25,8 @@ public class CreateAndDeleteTrelloBoardTests : PageTest
     {
         trello ??= new TrelloIndex(Page);
 
-        var boardName = TestDataGenerator.GenerateBoardName();
-        var updatedBoardName = TestDataGenerator.GenerateBoardName();
+        var boardName = GenerateBoardName();
+        var updatedBoardName = GenerateBoardName();
 
         // Create
         await trello.homePage.CreateNewBoard(boardName, "🌈");

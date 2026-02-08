@@ -1,14 +1,9 @@
-namespace PlaywrightCsharp.SupportCode.Api;
+namespace PlaywrightCsharp.Api;
 
-public class BoardsApi
+public class BoardsApi(IAPIRequestContext request)
 {
-    private readonly IAPIRequestContext _request;
+    private readonly IAPIRequestContext _request = request;
     readonly HeaderConstructor headers = new();
-
-    public BoardsApi(IAPIRequestContext request)
-    {
-        _request = request;
-    }
 
     public async Task<System.Text.Json.JsonElement> CreateBoard(
         string apiKey,

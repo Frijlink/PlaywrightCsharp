@@ -1,4 +1,4 @@
-namespace PlaywrightCsharp.SupportCode.Pages.Components;
+namespace PlaywrightCsharp.Pages.Components;
 
 public class HeaderComponent
 {
@@ -19,15 +19,9 @@ public class HeaderComponent
         _trelloBtn = _page.GetByLabel("Back to home");
     }
 
-    public ILocator GetLoginButton()
-    {
-        return _logInBtn;
-    }
+    public ILocator GetLoginButton() => _logInBtn;
 
-    public ILocator GetTrelloBtn()
-    {
-        return _trelloBtn;
-    }
+    public ILocator GetTrelloBtn() => _trelloBtn;
 
     public async Task LogOut()
     {

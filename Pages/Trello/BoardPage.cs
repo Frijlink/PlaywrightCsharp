@@ -1,4 +1,4 @@
-namespace PlaywrightCsharp.SupportCode.Pages.Trello;
+namespace PlaywrightCsharp.Pages.Trello;
 
 public class BoardPage
 {
@@ -25,15 +25,9 @@ public class BoardPage
         _deleteBoardConfirmBtn = _page.GetByTestId("close-board-delete-board-confirm-button");
     }
 
-    public ILocator GetMainTitle()
-    {
-        return _mainTitle;
-    }
+    public ILocator GetMainTitle() => _mainTitle;
 
-    public ILocator GetCloseBoardMessage()
-    {
-        return _closeBoardMessage;
-    }
+    public ILocator GetCloseBoardMessage() => _closeBoardMessage;
 
     public async Task WaitForPageLoaded()
     {

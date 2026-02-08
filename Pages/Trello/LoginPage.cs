@@ -1,4 +1,4 @@
-namespace PlaywrightCsharp.SupportCode.Pages.Trello;
+namespace PlaywrightCsharp.Pages.Trello;
 
 public class LoginPage
 {

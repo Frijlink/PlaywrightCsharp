@@ -1,8 +1,8 @@
-namespace PlaywrightCsharp.SupportCode.Api;
+namespace PlaywrightCsharp.Api;
 
 public class HeaderConstructor
 {
-    private readonly Dictionary<string, string> headers = new();
+    private readonly Dictionary<string, string> headers = [];
 
     public void AddHeaders(string key, string value)
     {
