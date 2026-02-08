@@ -1,18 +1,14 @@
-using PlaywrightCsharp.SupportCode.Api;
-using PlaywrightCsharp.SupportCode.Utilities;
-using static PlaywrightCsharp.SupportCode.Api.Context;
-using static PlaywrightCsharp.SupportCode.Settings.Configuration;
+using PlaywrightCsharp.Api;
+using static PlaywrightCsharp.Api.Context;
 
 namespace PlaywrightCsharp.Playwright.Tests.API;
 
 [Parallelizable(ParallelScope.Self)]
 [TestFixture]
-public class BoardsTests : PageTest
+public class BoardsTests : BasePage
 {
     private IAPIRequestContext? requestContext;
     private ApiIndex? API;
-    private string token = string.Empty;
-    private string key = string.Empty;
     private string boardId = string.Empty;
     private string organizationId = string.Empty;
 
@@ -21,11 +17,9 @@ public class BoardsTests : PageTest
     {
         requestContext = await CreateContext(Playwright.APIRequest);
         API = new ApiIndex(requestContext);
-        token = GetEnvironmentVariable("TRELLO_API_TOKEN");
-        key = GetEnvironmentVariable("TRELLO_API_KEY");
-        var tokenInfo = await API.apiToken.GetTokenInfo(key, token);
+        var tokenInfo = await API.apiToken.GetTokenInfo(KEY, TOKEN);
         var memberId = tokenInfo.GetProperty("idMember").ToString();
-        var orgs = await API.membersApi.GetMemberOrganizations(memberId, key, token);
+        var orgs = await API.membersApi.GetMemberOrganizations(memberId, KEY, TOKEN);
         organizationId = orgs[0].GetProperty("id").ToString();
     }
 
@@ -35,11 +29,11 @@ public class BoardsTests : PageTest
         requestContext ??= await CreateContext(Playwright.APIRequest);
         API ??= new ApiIndex(requestContext);
 
-        var boards = await API.membersApi.GetBoardsFromMember(key, token);
+        var boards = await API.membersApi.GetBoardsFromMember(KEY, TOKEN);
         foreach (var board in boards.EnumerateArray())
         {
             var id = board.GetProperty("id").ToString();
-            var responseStatus = await API.boardsApi.DeleteBoard(id, key, token);
+            var responseStatus = await API.boardsApi.DeleteBoard(id, KEY, TOKEN);
             Assert.That(responseStatus, Is.EqualTo(200));
         }
     }
@@ -50,15 +44,15 @@ public class BoardsTests : PageTest
         requestContext ??= await CreateContext(Playwright.APIRequest);
         API ??= new ApiIndex(requestContext);
 
-        var boardName = TestDataGenerator.GenerateBoardName();
-        var updatedBoardName = TestDataGenerator.GenerateBoardName();
+        var boardName = GenerateBoardName();
+        var updatedBoardName = GenerateBoardName();
         var backgroundColour = "purple";
         var updatedBackgroundColour = "pink";
         var visibility = "org";
         var updatedVisibility = "private";
 
         // Create Board
-        var responseBodyCreate = await API.boardsApi.CreateBoard(key, token, boardName, backgroundColour, visibility);
+        var responseBodyCreate = await API.boardsApi.CreateBoard(KEY, TOKEN, boardName, backgroundColour, visibility);
         var respCreatePrefs = responseBodyCreate.GetProperty("prefs");
         boardId = responseBodyCreate.GetProperty("id").ToString();
         Assert.That(responseBodyCreate.GetProperty("idOrganization").ToString(), Is.EqualTo(organizationId));
@@ -68,7 +62,7 @@ public class BoardsTests : PageTest
         Assert.That(respCreatePrefs.GetProperty("permissionLevel").ToString(), Is.EqualTo(visibility));
 
         // Read Board
-        var responseBodyRead = await API.boardsApi.GetBoard(boardId, key, token);
+        var responseBodyRead = await API.boardsApi.GetBoard(boardId, KEY, TOKEN);
         var respReadPrefs = responseBodyCreate.GetProperty("prefs");
         Assert.That(responseBodyRead.GetProperty("idOrganization").ToString(), Is.EqualTo(organizationId));
         Assert.That(responseBodyRead.GetProperty("name").ToString(), Is.EqualTo(boardName));
@@ -79,8 +73,8 @@ public class BoardsTests : PageTest
         // Update Board
         var parameters = new Dictionary<string, object>
         {
-            { "key", key },
-            { "token", token },
+            { "key", KEY },
+            { "token", TOKEN },
             { "name", updatedBoardName },
             { "prefs/background", updatedBackgroundColour },
             { "prefs/visibility", updatedVisibility }
@@ -96,17 +90,16 @@ public class BoardsTests : PageTest
         // Close Board
         var closeBoardParams = new Dictionary<string, object>
         {
-            { "key", key },
-            { "token", token },
+            { "key", KEY },
+            { "token", TOKEN },
             { "closed", "true" }
         };
         await API.boardsApi.UpdateBoard(boardId, closeBoardParams);
-        var responseBodyClose = await API.boardsApi.GetBoard(boardId, key, token);
+        var responseBodyClose = await API.boardsApi.GetBoard(boardId, KEY, TOKEN);
         Assert.That(responseBodyClose.GetProperty("closed").ToString(), Is.EqualTo("True"));
 
-
         // Delete Board
-        var responseStatusDelete = await API.boardsApi.DeleteBoard(boardId, key, token);
+        var responseStatusDelete = await API.boardsApi.DeleteBoard(boardId, KEY, TOKEN);
         Assert.That(responseStatusDelete, Is.EqualTo(200));
     }
 }

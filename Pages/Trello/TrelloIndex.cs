@@ -1,6 +1,6 @@
-using PlaywrightCsharp.SupportCode.Pages.Components;
+using PlaywrightCsharp.Pages.Components;
 
-namespace PlaywrightCsharp.SupportCode.Pages.Trello;
+namespace PlaywrightCsharp.Pages.Trello;
 
 public class TrelloIndex {
     private readonly IPage _page;

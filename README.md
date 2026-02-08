@@ -11,21 +11,21 @@ You need Visual Studio or Visual Studio Code with the C# extension and [PowerShe
 
 ## How do I get set up? ##
 
-Follow the steps [here](https://playwright.dev/dotnet/docs/intro), follow the steps from step 2
+Build the project in your IDE or in the terminal using `dotnet build PlaywrightCsharp.csproj`.
 
-Install [Faket.net](https://github.com/Kuree/Faker.Net)-package with `dotnet add package Faker.Net`
+Install Playwright with `pwsh bin/Debug/net8.0/playwright.ps1 install`.
 
-Set the following Environment Variables
+Create a `.env`-file with the following values
 
-| key              | value                   |
-|------------------|-------------------------|
-| RETRIES          | "0"                     |
-| TRELLO_BASE_URL  | "http://trello.com"     |
-| TRELLO_USERNAME  |                         |
-| TRELLO_PASSWORD  |                         |
-| TRELLO_API_URL   |"https://api.trello.com" |
-| TRELLO_API_KEY   |                         |
-| TRELLO_API_TOKEN |                         |
+```
+RETRIES=0
+TRELLO_BASE_URL="http://trello.com"
+TRELLO_USERNAME="***"
+TRELLO_PASSWORD="***"
+TRELLO_API_URL="https://api.trello.com"
+TRELLO_API_KEY="***"
+TRELLO_API_TOKEN="***"
+```
 
 ## How to run the tests ##
 
@@ -36,7 +36,5 @@ Set the following Environment Variables
 ## TODO: ##
 
 * get rid of unnecassary casting?
-* Fluentassert vs Assert
-* Parallel tests
 * Screenshot on save
 * HTML report (or trx)

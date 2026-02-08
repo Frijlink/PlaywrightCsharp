@@ -1,22 +1,16 @@
-using static PlaywrightCsharp.SupportCode.Settings.Configuration;
+using PlaywrightCsharp.Playwright.Tests;
 
-namespace PlaywrightCsharp.SupportCode.Api;
+namespace PlaywrightCsharp.Api;
 
-public class MembersApi
+public class MembersApi(IAPIRequestContext request)
 {
-    private readonly IAPIRequestContext _request;
     readonly HeaderConstructor headers = new();
-
-    public MembersApi(IAPIRequestContext request)
-    {
-        _request = request;
-    }
 
     public async Task<System.Text.Json.JsonElement> GetBoardsFromMember(string apiKey, string apiToken)
     {
         var url = $"/1/members/me/boards?key={apiKey}&token={apiToken}";
         headers.AddHeaders("Accept", "application/json");
-        var response = await _request.GetAsync(url, new() {
+        var response = await request.GetAsync(url, new() {
             Headers = headers.GetHeaders()
         });
         return (System.Text.Json.JsonElement)await response.JsonAsync();
@@ -24,9 +18,9 @@ public class MembersApi
 
     public async Task<System.Text.Json.JsonElement> GetMemberOrganizations(string memberId, string apiKey, string apiToken)
     {
-        var url = $"{GetEnvironmentVariable("TRELLO_API_URL")}/1/members/{memberId}/organizations?key={apiKey}&token={apiToken}";
+        var url = $"{BasePage.API_URL}/1/members/{memberId}/organizations?key={apiKey}&token={apiToken}";
         headers.AddHeaders("Accept", "application/json");
-        var response = await _request.GetAsync(url, new() {
+        var response = await request.GetAsync(url, new() {
             Headers = headers.GetHeaders()
         });
         return (System.Text.Json.JsonElement)await response.JsonAsync();

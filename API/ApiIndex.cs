@@ -1,4 +1,4 @@
-namespace PlaywrightCsharp.SupportCode.Api;
+namespace PlaywrightCsharp.Api;
 
 public class ApiIndex
 {
